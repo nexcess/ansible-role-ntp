@@ -6,19 +6,32 @@ galaxy_info:
   description: NTP installation and configuration for Linux.
   company: "Midwestern Mac, LLC"
   license: "license (BSD, MIT)"
-  min_ansible_version: 1.8
+  min_ansible_version: 2.4
   platforms:
     - name: EL
       versions:
-      - all
+        - all
+    - name: Fedora
+      versions:
+        - all
     - name: Debian
       versions:
-      - all
+        - all
     - name: Ubuntu
       versions:
-      - all
+        - all
     - name: FreeBSD
       versions:
-      - all
+        - all
+    - name: Suse
+      versions:
+        - all
+    - name: Archlinux
+      versions:
+        - all
   galaxy_tags:
     - system
+    - ntp
+    - date
+    - time
+    - timezone

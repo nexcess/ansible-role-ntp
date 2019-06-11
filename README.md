@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/geerlingguy/ansible-role-ntp.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-ntp)
 
-Installs NTP on RedHat/CentOS and Debian/Ubuntu Linux servers.
+Installs NTP on Linux.
 
 ## Requirements
 
@@ -24,13 +24,23 @@ Set the timezone for your server.
 
 Set to true to allow this role to manage the NTP configuration file (`/etc/ntp.conf`).
 
-    ntp_servers:
-     - 0.pool.ntp.org iburst
-     - 1.pool.ntp.org iburst
-     - 2.pool.ntp.org iburst
-     - 3.pool.ntp.org iburst
+    ntp_area: ''
 
-Specify the NTP servers you'd like to use. Only takes effect if you allow this role to manage NTP's configuration, by setting `ntp_manage_config` to `true`.
+Set the [NTP Pool Area](http://support.ntp.org/bin/view/Servers/NTPPoolServers) to use. Defaults to none, which uses the worldwide pool.
+
+    ntp_servers:
+      - "0{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+      - "1{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+      - "2{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+      - "3{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+
+Specify the NTP servers you'd like to use. Only takes effect if you allow this role to manage NTP's configuration, by setting `ntp_manage_config` to `True`.
+
+    ntp_restrict:
+      - "127.0.0.1"
+      - "::1"
+
+Restrict NTP access to these hosts; loopback only, by default.
 
 ## Dependencies
 
@@ -52,4 +62,4 @@ MIT / BSD
 
 ## Author Information
 
-This role was created in 2014 by [Jeff Geerling](http://www.jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
+This role was created in 2014 by [Jeff Geerling](https://www.jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
